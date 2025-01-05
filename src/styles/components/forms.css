@@ -1,0 +1,106 @@
+@layer components {
+  .form-group {
+    @apply mb-4;
+  }
+
+  .form-label {
+    @apply block text-sm font-medium text-brown-dark dark:text-beige mb-1;
+  }
+
+  .form-input {
+    @apply w-full px-4 py-2 rounded-lg border bg-white dark:bg-charcoal
+           border-brown-light dark:border-brown-dark
+           text-brown-dark dark:text-on-dark
+           placeholder-muted
+           focus:ring-2 focus:ring-brown-medium focus:border-brown-medium
+           dark:focus:ring-brown-light dark:focus:border-brown-light
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .form-textarea {
+    @apply form-input min-h-[100px] resize-y;
+  }
+
+  .form-select {
+    @apply form-input appearance-none bg-no-repeat bg-right pr-10;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23894e31' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+    background-size: 1.5em 1.5em;
+  }
+
+  .dark .form-select {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23d09b71' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+  }
+
+  .form-checkbox {
+    @apply h-4 w-4 rounded border-brown-light bg-white 
+           dark:border-brown-dark dark:bg-charcoal
+           text-brown-medium
+           focus:ring-brown-medium dark:focus:ring-brown-light
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .form-radio {
+    @apply form-checkbox rounded-full;
+  }
+
+  .form-switch {
+    @apply relative h-6 w-11 cursor-pointer appearance-none rounded-full
+           bg-brown-light dark:bg-brown-dark
+           transition-colors duration-200 ease-in-out
+           focus:outline-none focus:ring-2 focus:ring-brown-medium focus:ring-offset-2
+           dark:focus:ring-brown-light dark:focus:ring-offset-charcoal
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .form-switch::before {
+    content: '';
+    @apply absolute left-1 top-1 h-4 w-4 transform rounded-full
+           bg-white dark:bg-beige
+           transition duration-200 ease-in-out;
+  }
+
+  .form-switch:checked {
+    @apply bg-brown-medium dark:bg-brown-light;
+  }
+
+  .form-switch:checked::before {
+    @apply translate-x-5;
+  }
+
+  .form-error {
+    @apply text-sm text-red-600 dark:text-red-400 mt-1;
+  }
+
+  .form-success {
+    @apply text-sm text-green-600 dark:text-green-400 mt-1;
+  }
+
+  .form-helper {
+    @apply text-sm text-muted mt-1;
+  }
+
+  /* Form group states */
+  .form-group-error .form-label {
+    @apply text-red-600 dark:text-red-400;
+  }
+
+  .form-group-error .form-input,
+  .form-group-error .form-select,
+  .form-group-error .form-textarea {
+    @apply border-red-600 dark:border-red-400
+           focus:border-red-600 focus:ring-red-600
+           dark:focus:border-red-400 dark:focus:ring-red-400;
+  }
+
+  .form-group-success .form-label {
+    @apply text-green-600 dark:text-green-400;
+  }
+
+  .form-group-success .form-input,
+  .form-group-success .form-select,
+  .form-group-success .form-textarea {
+    @apply border-green-600 dark:border-green-400
+           focus:border-green-600 focus:ring-green-600
+           dark:focus:border-green-400 dark:focus:ring-green-400;
+  }
+}

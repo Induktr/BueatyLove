@@ -1,0 +1,62 @@
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-full font-medium transition-all duration-300;
+  }
+
+  .btn-primary {
+    @apply bg-brown-medium text-on-dark hover:bg-brown-hover-medium active:bg-brown-active-medium shadow-sm hover:shadow-md;
+  }
+
+  .btn-secondary {
+    @apply bg-beige text-brown-dark hover:bg-opacity-90 active:bg-opacity-80 dark:bg-charcoal dark:text-on-dark dark:hover:bg-opacity-90;
+  }
+
+  .btn-outline {
+    @apply border-2 border-brown-medium text-brown-medium hover:bg-brown-medium hover:text-on-dark 
+           dark:border-brown-light dark:text-brown-light dark:hover:bg-brown-light dark:hover:text-charcoal;
+  }
+
+  .btn-ghost {
+    @apply text-brown-dark hover:bg-brown-light hover:bg-opacity-10 active:bg-opacity-20
+           dark:text-beige dark:hover:bg-beige dark:hover:bg-opacity-10;
+  }
+
+  .btn-sm {
+    @apply px-4 py-2 text-sm;
+  }
+
+  .btn-lg {
+    @apply px-8 py-4 text-lg;
+  }
+
+  .btn-icon {
+    @apply p-2 rounded-full hover:bg-brown-light hover:bg-opacity-10 text-brown-dark
+           dark:text-beige dark:hover:bg-beige dark:hover:bg-opacity-10;
+  }
+
+  /* Loading state */
+  .btn-loading {
+    @apply relative text-transparent transition-none hover:text-transparent;
+  }
+
+  .btn-loading::after {
+    @apply absolute w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin;
+    content: '';
+  }
+
+  /* Disabled state */
+  .btn:disabled {
+    @apply opacity-50 cursor-not-allowed hover:shadow-none;
+  }
+
+  /* Theme toggle button */
+  #theme-toggle {
+    @apply fixed bottom-4 right-4 z-50 flex items-center justify-center w-10 h-10 p-0 rounded-full 
+           bg-background-light dark:bg-background-dark border border-border-light dark:border-border-dark 
+           text-primary-darkBrown dark:text-primary-lightBrown shadow-lg hover:scale-110 transition-transform;
+  }
+
+  #theme-toggle span {
+    @apply flex items-center justify-center leading-none;
+  }
+}

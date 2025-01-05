@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="uk" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BeautyLove - Салон краси</title>
+    <link rel="stylesheet" href="./src/styles/main.css">
+    <script defer type="module" src="./src/main.js"></script>
+    <script>
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark')
+        } else {
+            document.documentElement.classList.remove('dark')
+        }
+    </script>
+</head>
+<body class="font-sans antialiased bg-background-light text-text-onLight dark:bg-background-dark dark:text-text-onDark transition-colors duration-200">
+    <!-- Special Offer Banner -->
+    <div class="bg-primary-mediumBrown text-white py-3 px-4 text-center">
+        <p class="text-sm md:text-base">
+            <span data-translate="special_offer">Спеціальна пропозиція: -20% на перше відвідування для нових клієнтів</span>
+            <a href="#booking" class="underline ml-2 hover:text-gray-200 transition-colors" data-translate="book_now_offer">Записатись зараз</a>
+        </p>
+    </div>
+
+    <!-- Header -->
+    <header class="bg-white dark:bg-gray-900 sticky top-0 z-30 border-b border-gray-200 dark:border-gray-700">
+        <div class="container mx-auto px-4">
+            <nav class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <a href="/" class="text-2xl font-bold text-primary-darkBrown dark:text-primary-lightBrown hidden sm:block">
+                    BeautyLove
+                </a>
+
+                <!-- Mobile Menu Button -->
+                <button id="burger-menu-button" 
+                        class="md:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none"
+                        aria-label="Open menu"
+                        aria-expanded="false">
+                    <svg class="burger-icon w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                    <svg class="close-icon hidden w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#services" class="nav-link" data-translate="services">Послуги</a>
+                    <a href="#portfolio" class="nav-link" data-translate="portfolio">Портфоліо</a>
+                    <a href="/src/pages/prices.html" class="nav-link" data-translate="prices">Ціни</a>
+                    <a href="/src/pages/about.html" class="nav-link" data-translate="about">Про нас</a>
+                    <a href="#footer" class="nav-link" data-translate="contacts">Контакти</a>
+                    <a href="#faq" class="nav-link">FAQ</a>
+                </div>
+
+                <!-- Right Side Items (Desktop) -->
+                <div class="hidden md:flex items-center space-x-4">
+                    <!-- Language Switcher -->
+                    <div class="relative" id="language-switcher">
+                        <button 
+                            id="language-toggle" 
+                            class="flex items-center space-x-2 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+                            aria-label="Change language"
+                            aria-expanded="false"
+                        >
+                            <img id="current-lang-icon" src="https://flagcdn.com/ua.svg" alt="Ukrainian" class="w-5 h-5 rounded-full">
+                            <span id="current-lang-text" class="text-sm font-medium">Українська</span>
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div 
+                            id="language-dropdown"
+                            class="hidden absolute right-0 mt-2 py-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700"
+                        >
+                            <button class="w-full flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700" data-lang="uk">
+                                <img src="https://flagcdn.com/ua.svg" alt="Ukrainian" class="w-5 h-5 rounded-full mr-3">
+                                <span>Українська</span>
+                            </button>
+                            <button class="w-full flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700" data-lang="en">
+                                <img src="https://flagcdn.com/gb.svg" alt="English" class="w-5 h-5 rounded-full mr-3">
+                                <span>English</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Theme Toggle -->
+                    <button id="theme-toggle" class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800">
+                        <div class="relative w-5 h-5">
+                            <!-- Moon Icon -->
+                            <svg class="theme-icon moon-icon absolute w-5 h-5 transition-transform duration-500" 
+                                 fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                    d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z">
+                                </path>
+                            </svg>
+                            <!-- Sun Icon -->
+                            <svg class="theme-icon sun-icon absolute w-5 h-5 transition-transform duration-500" 
+                                 fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                    d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z">
+                                </path>
+                            </svg>
+                        </div>
+                    </button>
+
+                    <!-- Book Now Button -->
+                    <a href="#booking" class="book-now-btn" data-translate="book_now">Записатись</a>
+                </div>
+            </nav>
+
+            <!-- Mobile Menu Dropdown -->
+            <div id="mobile-menu" class="md:hidden hidden">
+                <div class="py-4 space-y-4">
+                    <a href="#services" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800" data-translate="services">Послуги</a>
+                    <a href="#portfolio" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800" data-translate="portfolio">Портфоліо</a>
+                    <a href="/src/pages/prices.html" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800" data-translate="prices">Ціни</a>
+                    <a href="/src/pages/about.html" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800" data-translate="about">Про нас</a>
+                    <a href="#footer" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800" data-translate="contacts">Контакти</a>
+                    <a href="#faq" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800">FAQ</a>
+
+                     <!-- Theme Switcher in Mobile Menu -->
+                     <div class="px-4 py-2">
+                        <button id="mobile-theme-toggle" class="flex items-center space-x-2 w-full">
+                            <div class="relative w-5 h-5">
+                                <!-- Moon Icon -->
+                                <svg class="theme-icon moon-icon absolute w-5 h-5 transition-transform duration-500" 
+                                     fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                        d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z">
+                                    </path>
+                                </svg>
+                                <!-- Sun Icon -->
+                                <svg class="theme-icon sun-icon absolute w-5 h-5 transition-transform duration-500" 
+                                     fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                        d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z">
+                                    </path>
+                                </svg>
+                            </div>
+                            <span id="theme-text" class="text-sm font-medium" data-translate="dark_mode">Темна-тема</span>
+                        </button>
+                    </div>
+                    
+                    <!-- Language Switcher in Mobile Menu -->
+                    <div class="px-4 py-2 relative">
+                        <button id="mobile-language-toggle" 
+                                class="flex items-center space-x-2 w-full justify-between"
+                                aria-expanded="false">
+                            <div class="flex items-center">
+                                <img id="mobile-current-lang-icon" src="https://flagcdn.com/ua.svg" alt="Ukrainian" class="w-5 h-5 rounded-full mr-2">
+                                <span id="mobile-current-lang-text" class="text-sm font-medium">Українська</span>
+                            </div>
+                            <svg class="w-4 h-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div id="mobile-language-dropdown"
+                             class="hidden absolute left-0 right-0 mt-2 py-2 bg-white dark:bg-gray-800 shadow-lg border border-gray-200 dark:border-gray-700">
+                            <button class="w-full flex items-center px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700" data-lang="uk">
+                                <img src="https://flagcdn.com/ua.svg" alt="Ukrainian" class="w-5 h-5 rounded-full mr-3">
+                                <span>Українська</span>
+                            </button>
+                            <button class="w-full flex items-center px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700" data-lang="en">
+                                <img src="https://flagcdn.com/gb.svg" alt="English" class="w-5 h-5 rounded-full mr-3">
+                                <span>English</span>
+                            </button>
+                        </div>
+                    </div>
+                        
+                    <!-- Book Now Button in Mobile Menu -->
+                    <div class="px-4 py-2">
+                        <a href="#booking" class="block w-full text-center book-now-btn" data-translate="book_now">Записатись</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero relative min-h-screen bg-gradient-to-r from-primary-lightBrown to-primary-darkBrown overflow-hidden">
+        <div class="absolute inset-0 bg-black/30"></div>
+        
+        <div class="container mx-auto px-4 py-32 relative z-10 text-white">
+            <h1 class="hero-title text-5xl md:text-7xl font-bold mb-8" data-animate="fade" data-translate="hero_title">
+                Відкрийте свою природну красу
+            </h1>
+            <p class="text-xl md:text-2xl mb-12" data-animate="fade" data-translate="hero_subtitle">
+                Професійний догляд за бровами та віями для підкреслення вашої індивідуальності
+            </p>
+            <div class="flex flex-wrap gap-4" data-animate="slide" data-slide="up">
+                <a href="#booking" 
+                   class="inline-flex items-center space-x-2 bg-white hover:bg-gray-100 text-primary-darkBrown px-8 py-3 rounded-full transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg" data-translate="book_online">
+                    <span data-icon="actions.book" data-icon-class="w-5 h-5"></span>
+                    <span>Записатись онлайн</span>
+                </a>
+                <a href="#services" 
+                   class="inline-flex items-center space-x-2 bg-transparent hover:bg-white/10 text-white border-2 border-white px-8 py-3 rounded-full transition-all duration-300" data-translate="our_services">
+                    <span data-icon="services.all" data-icon-class="w-5 h-5"></span>
+                    <span>Наші послуги</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-gradient-to-b from-background-light to-gray-50 dark:from-background-dark dark:to-gray-900">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-5xl font-bold mb-12 text-center" data-animate="fade" data-translate="our_services">
+                Наші послуги
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <service-card 
+                    icon="services.brows"
+                    title="Дизайн брів"
+                    description="Професійне оформлення та корекція брів з індивідуальним підбором форми"
+                    data-animate="scale"
+                    data-hover="lift"
+                    class="service-card"
+                ></service-card>
+                
+                <service-card
+                    icon="services.lashes"
+                    title="Нарощування вій"
+                    description="Класичне та об'ємне нарощування вій з використанням преміум матеріалів"
+                    data-animate="scale"
+                    data-hover="lift"
+                    class="service-card"
+                ></service-card>
+                
+                <service-card
+                    icon="services.makeup"
+                    title="Макіяж"
+                    description="Професійний макіяж для будь-якої події з урахуванням ваших побажань"
+                    data-animate="scale"
+                    data-hover="lift"
+                    class="service-card"
+                ></service-card>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#booking" 
+                   class="inline-flex items-center space-x-2 bg-primary-mediumBrown hover:bg-primary-darkBrown text-text-onDark px-8 py-3 rounded-full transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg" data-translate="book_appointment">
+                    <span data-icon="actions.book" data-icon-class="w-5 h-5"></span>
+                    <span>Записатись на послугу</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="py-20 bg-gray-50 dark:bg-gray-900">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-5xl font-bold mb-12 text-center" data-animate="fade" data-translate="our_works">
+                Наші роботи
+            </h2>
+            <div class="overflow-x-auto pb-4 -mx-4 px-4 md:overflow-visible md:pb-0 md:px-0 md:mx-0">
+                <div class="flex md:grid md:grid-cols-3 gap-8 min-w-max md:min-w-0">
+                    <!-- Gallery items -->
+                    <div class="gallery-item group cursor-pointer overflow-hidden rounded-lg shadow-lg relative w-72 md:w-auto" 
+                         data-gallery-index="0">
+                        <img src="https://res.cloudinary.com/dsjalneil/image/upload/v1734994808/Induktr_r323te.jpg" 
+                             alt="Beauty Work 1" 
+                             class="w-full h-64 object-cover transform transition-transform duration-300 group-hover:scale-110">
+                        <div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent 
+                                    opacity-0 group-hover:opacity-100 transition-all duration-300">
+                            <div class="absolute bottom-0 left-0 right-0 p-6 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                                <h3 class="text-white text-xl font-semibold mb-2" data-translate="lashes_extension">Нарощування вій</h3>
+                                <p class="text-gray-200 text-sm" data-translate="lashes_extension_description">Класичне нарощування вій 2D об'єм з використовуваних преміум матеріалів для природного та виразного погляду.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item group cursor-pointer overflow-hidden rounded-lg shadow-lg relative w-72 md:w-auto" 
+                         data-gallery-index="1">
+                        <img src="https://res.cloudinary.com/dsjalneil/image/upload/v1734994812/InduktrCompany_rmzwmb.jpg" 
+                             alt="Beauty Work 2" 
+                             class="w-full h-64 object-cover transform transition-transform duration-300 group-hover:scale-110">
+                        <div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent 
+                                    opacity-0 group-hover:opacity-100 transition-all duration-300">
+                            <div class="absolute bottom-0 left-0 right-0 p-6 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                                <h3 class="text-white text-xl font-semibold mb-2" data-translate="professional_makeup">Професійний макіяж</h3>
+                                <p class="text-gray-200 text-sm" data-translate="professional_makeup_description">Професійний макіяж для будь-якої події з використанням преміум косметики.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item group cursor-pointer overflow-hidden rounded-lg shadow-lg relative w-72 md:w-auto" 
+                         data-gallery-index="2">
+                        <img src="https://res.cloudinary.com/dsjalneil/image/upload/v1734994605/InduktrNewyear_n3dgjw.jpg" 
+                             alt="Beauty Work 3" 
+                             class="w-full h-64 object-cover transform transition-transform duration-300 group-hover:scale-110">
+                        <div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent 
+                                    opacity-0 group-hover:opacity-100 transition-all duration-300">
+                            <div class="absolute bottom-0 left-0 right-0 p-6 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                                <h3 class="text-white text-xl font-semibold mb-2" data-translate="manicure">Манікюр</h3>
+                                <p class="text-gray-200 text-sm" data-translate="manicure_description">Професійний манікюр з використанням якісних матеріалів та стерильних інструментів.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+           
+    </section>
+
+    <!-- Testimonials you Section -->
+    <section id="testimonials" class="py-20 bg-gray-50 dark:bg-gray-900">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-5xl font-bold mb-12 text-center" data-animate="fade" data-translate="our_clients">
+                Наші клієнти
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Testimonial items will be dynamically loaded -->
+                <div class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg border-2 border-primary-lightBrown">
+                    <div class="flex items-center mb-4">
+                        <img src="https://res.cloudinary.com/dsjalneil/image/upload/v1734994808/Induktr_r323te.jpg" alt="Client 1" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h3 class="text-lg font-semibold" data-animate="fade" data-translate="client_name">Іван Петренко</h3>
+                            <p class="text-sm text-gray-300" data-animate="fade" data-translate="client_position">Менеджер</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300" data-animate="fade" data-translate="client_review">"Якісна послуга з надійним результатом. Рекомендую!"</p>
+                </div>
+                <!-- Add more testimonial items here -->
+                <div class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg border-2 border-primary-lightBrown">
+                    <div class="flex items-center mb-4">
+                        <img src="https://res.cloudinary.com/dsjalneil/image/upload/v1734994808/Induktr_r323te.jpg" alt="Client 2" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h3 class="text-lg font-semibold" data-animate="fade" data-translate="client_name">Марія Ковальчук</h3>
+                            <p class="text-sm text-gray-300" data-animate="fade" data-translate="client_position">Менеджерка</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300" data-animate="fade" data-translate="client_review">"Якісна послуга з надійним результатом. Рекомендую!"</p>
+                </div>
+                <!-- Add more testimonial items here -->
+                <div class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg border-2 border-primary-lightBrown">
+                    <div class="flex items-center mb-4">
+                        <img src="https://res.cloudinary.com/dsjalneil/image/upload/v1734994808/Induktr_r323te.jpg" alt="Client 2" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h3 class="text-lg font-semibold" data-animate="fade" data-translate="client_name">Марія Ковальчук</h3>
+                            <p class="text-sm text-gray-300" data-animate="fade" data-translate="client_position">Менеджерка</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300" data-animate="fade" data-translate="client_review">"Якісна послуга з надійним результатом. Рекомендую!"</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="py-16 bg-gray-50 dark:bg-gray-900">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12" data-translate="frequently_asked_questions">Часті запитання</h2>
+            
+            <div class="max-w-3xl mx-auto space-y-4">
+                <!-- Pricing Question -->
+                <div class="faq-item bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
+                    <button class="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200" onclick="toggleFAQ(this)">
+                        <span class="text-lg font-semibold" data-translate="prices_question">Які ціни на ваші послуги?</span>
+                        <svg class="w-6 h-6 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-content hidden px-6 py-4 border-t dark:border-gray-700">
+                        <p data-translate="prices_answer">Ціни на наші послуги варіюються залежно від процедури:</p>
+                        <ul class="list-disc ml-6 mt-2 space-y-2">
+                            <li data-translate="brows_price">Брови - від 500 грн</li>
+                            <li data-translate="makeup_price">Макіяж - від 1000 грн</li>
+                            <li data-translate="skin_care_price">Догляд за шкірою - від 800 грн</li>
+                        </ul>
+                        <p class="mt-2" data-translate="prices_note">Точну вартість можна дізнатися під час консультації, оскільки ціна залежить від складності роботи та використовуваних матеріалів.</p>
+                    </div>
+                </div>
+
+                <!-- Duration Question -->
+                <div class="faq-item bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
+                    <button class="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200" onclick="toggleFAQ(this)">
+                        <span class="text-lg font-semibold" data-translate="duration_question">Скільки часу займають процедури?</span>
+                        <svg class="w-6 h-6 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-content hidden px-6 py-4 border-t dark:border-gray-700">
+                        <ul class="space-y-2">
+                            <li data-translate="brows_duration">• Корекція брів - 40-60 хвилин</li>
+                            <li data-translate="makeup_duration">• Вечірній макіяж - 60-90 хвилин</li>
+                            <li data-translate="wedding_makeup_duration">• Весільний макіяж - 90-120 хвилин</li>
+                            <li data-translate="skin_care_duration">• Базовий догляд за шкірою - 45-60 хвилин</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Booking Question -->
+                <div class="faq-item bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
+                    <button class="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200" onclick="toggleFAQ(this)">
+                        <span class="text-lg font-semibold" data-translate="booking_question">Як записатися на процедуру?</span>
+                        <svg class="w-6 h-6 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-content hidden px-6 py-4 border-t dark:border-gray-700">
+                        <p data-translate="booking_answer">Записатися можна кількома способами:</p>
+                        <ul class="list-disc ml-6 mt-2 space-y-2">
+                            <li data-translate="phone_booking">Зателефонувавши за номером: +380 44 123 45 67</li>
+                            <li data-translate="telegram_booking">Через наш Telegram-канал</li>
+                            <li data-translate="instagram_booking">Через Instagram Direct</li>
+                            <li data-translate="website_booking">На сайті через форму запису</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Cancellation Question -->
+                <div class="faq-item bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
+                    <button class="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200" onclick="toggleFAQ(this)">
+                        <span class="text-lg font-semibold" data-translate="cancellation_question">Яка політика скасування запису?</span>
+                        <svg class="w-6 h-6 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-content hidden px-6 py-4 border-t dark:border-gray-700">
+                        <p data-translate="cancellation_answer">Ми розуміємо, що плани можуть змінюватися, тому:</p>
+                        <ul class="list-disc ml-6 mt-2 space-y-2">
+                            <li data-translate="cancellation_24_hours">Скасування за 24 години - без штрафу</li>
+                            <li data-translate="cancellation_less_than_24_hours">Скасування менш ніж за 24 години - 50% вартості послуги</li>
+                            <li data-translate="no_show">Неявка без попередження - 100% вартості послуги</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function toggleFAQ(button) {
+            const content = button.nextElementSibling;
+            const arrow = button.querySelector('svg');
+            
+            // Toggle content visibility
+            content.classList.toggle('hidden');
+            
+            // Rotate arrow
+            if (content.classList.contains('hidden')) {
+                arrow.classList.remove('rotate-180');
+            } else {
+                arrow.classList.add('rotate-180');
+            }
+        }
+    </script>
+
+    <!-- Booking Section -->
+    <section id="booking" class="py-20 bg-gradient-to-br from-gray-50 to-primary-lightBrown/5 dark:from-gray-900 dark:to-primary-darkBrown/5">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-5xl font-bold mb-4" data-animate="fade" data-translate="book_appointment">
+                        Записатись на прийом
+                    </h2>
+                    <p class="text-gray-600 dark:text-gray-400" data-translate="choose_time">Оберіть зручний час для вашого перетворення</p>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 md:p-8">
+                    <div class="flex justify-between items-center mb-8">
+                        <div class="flex space-x-4">
+                            <span class="booking-step-indicator active flex items-center justify-center w-8 h-8 rounded-full bg-primary-mediumBrown text-white font-semibold">1</span>
+                            <span class="booking-step-indicator flex items-center justify-center w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400 font-semibold">2</span>
+                            <span class="booking-step-indicator flex items-center justify-center w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400 font-semibold">3</span>
+                        </div>
+                        <div class="text-sm text-gray-500 dark:text-gray-400 hidden md:block" data-translate="step_1">
+                            Крок 1 з 3
+                        </div>
+                    </div>
+
+                    <form id="booking-form" class="space-y-8" data-animate="slide" data-slide="up">
+                        <!-- Step 1: Service Selection -->
+                        <div class="booking-step active" id="step-1">
+                            <div class="overflow-x-auto pb-4 -mx-4 px-4 md:overflow-visible md:pb-0 md:px-0 md:mx-0">
+                                <div class="flex md:grid md:grid-cols-3 gap-6 min-w-max md:min-w-0">
+                                    <div class="service-card group cursor-pointer p-4 rounded-xl border-2 border-transparent hover:border-primary-mediumBrown transition-all duration-300 w-72 md:w-auto">
+                                        <div class="aspect-square rounded-lg bg-primary-lightBrown/10 flex items-center justify-center mb-4">
+                                            <svg class="w-12 h-12 text-primary-mediumBrown" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                            </svg>
+                                        </div>
+                                        <h3 class="font-semibold text-lg mb-2" data-translate="brows_design">Дизайн брів</h3>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400" data-translate="brows_design_description">Професійне оформлення та корекція брів з індивідуальним підбором форми</p>
+                                    </div>
+
+                                    <div class="service-card group cursor-pointer p-4 rounded-xl border-2 border-transparent hover:border-primary-mediumBrown transition-all duration-300 w-72 md:w-auto">
+                                        <div class="aspect-square rounded-lg bg-primary-lightBrown/10 flex items-center justify-center mb-4">
+                                            <svg class="w-12 h-12 text-primary-mediumBrown" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                            </svg>
+                                        </div>
+                                        <h3 class="font-semibold text-lg mb-2" data-translate="lashes_extension">Нарощування вій</h3>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400" data-translate="lashes_extension_description">Класичне та об'ємне нарощування вій</p>
+                                    </div>
+
+                                    <div class="service-card group cursor-pointer p-4 rounded-xl border-2 border-transparent hover:border-primary-mediumBrown transition-all duration-300 w-72 md:w-auto">
+                                        <div class="aspect-square rounded-lg bg-primary-lightBrown/10 flex items-center justify-center mb-4">
+                                            <svg class="w-12 h-12 text-primary-mediumBrown" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                            </svg>
+                                        </div>
+                                        <h3 class="font-semibold text-lg mb-2" data-translate="makeup">Макіяж</h3>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400" data-translate="makeup_description">Денний та вечірній макіяж</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Date & Time Selection -->
+                        <div class="booking-step hidden" id="step-2">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <div>
+                                    <label class="block text-sm font-medium mb-2" data-translate="choose_date">Оберіть дату</label>
+                                    <div class="calendar-container">
+                                        <input type="date" id="date" name="date" required min="2025-01-02"
+                                               class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary-mediumBrown focus:ring-2 focus:ring-primary-lightBrown dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200"
+                                               data-date-format="dd.mm.yyyy"
+                                               placeholder="ДД.ММ.РРРР">
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium mb-2" data-translate="choose_time">Оберіть час</label>
+                                    <div class="overflow-x-auto">
+                                        <div class="grid grid-cols-3 gap-2 min-w-max pb-4">
+                                            <button type="button" class="time-slot px-4 py-3 rounded-lg border border-gray-300 hover:border-primary-mediumBrown hover:bg-primary-lightBrown/10 focus:outline-none focus:ring-2 focus:ring-primary-lightBrown dark:border-gray-700 dark:hover:bg-primary-darkBrown/10 transition-all" data-translate="10_00">10:00</button>
+                                            <button type="button" class="time-slot px-4 py-3 rounded-lg border border-gray-300 hover:border-primary-mediumBrown hover:bg-primary-lightBrown/10 focus:outline-none focus:ring-2 focus:ring-primary-lightBrown dark:border-gray-700 dark:hover:bg-primary-darkBrown/10 transition-all" data-translate="11_00">11:00</button>
+                                            <button type="button" class="time-slot px-4 py-3 rounded-lg border border-gray-300 hover:border-primary-mediumBrown hover:bg-primary-lightBrown/10 focus:outline-none focus:ring-2 focus:ring-primary-lightBrown dark:border-gray-700 dark:hover:bg-primary-darkBrown/10 transition-all" data-translate="12_00">12:00</button>
+                                            <button type="button" class="time-slot px-4 py-3 rounded-lg border border-gray-300 hover:border-primary-mediumBrown hover:bg-primary-lightBrown/10 focus:outline-none focus:ring-2 focus:ring-primary-lightBrown dark:border-gray-700 dark:hover:bg-primary-darkBrown/10 transition-all" data-translate="13_00">13:00</button>
+                                            <button type="button" class="time-slot px-4 py-3 rounded-lg border border-gray-300 hover:border-primary-mediumBrown hover:bg-primary-lightBrown/10 focus:outline-none focus:ring-2 focus:ring-primary-lightBrown dark:border-gray-700 dark:hover:bg-primary-darkBrown/10 transition-all" data-translate="14_00">14:00</button>
+                                            <button type="button" class="time-slot px-4 py-3 rounded-lg border border-gray-300 hover:border-primary-mediumBrown hover:bg-primary-lightBrown/10 focus:outline-none focus:ring-2 focus:ring-primary-lightBrown dark:border-gray-700 dark:hover:bg-primary-darkBrown/10 transition-all" data-translate="15_00">15:00</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Contact Information -->
+                        <div class="booking-step hidden" id="step-3">
+                            <div class="space-y-6">
+                                <div>
+                                    <label for="name" class="block text-sm font-medium mb-2" data-translate="name">Ім'я</label>
+                                    <input type="text" id="name" name="name" data-translate="placeholderName" required placeholder="Ваше ім'я"
+                                           class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary-mediumBrown focus:ring-2 focus:ring-primary-lightBrown dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200">
+                                </div>
+                                 
+                                <div>
+                                    <label for="phone" class="block text-sm font-medium mb-2" data-translate="phone">Телефон</label>
+                                    <div class="relative">
+                                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">+380</span>
+                                        <input type="tel" id="phone" name="phone" data-translate="placeholderPhone" required placeholder="XX XXX XXXX"
+                                               class="w-full pl-16 pr-4 py-3 rounded-lg border border-gray-300 focus:border-primary-mediumBrown focus:ring-2 focus:ring-primary-lightBrown dark:bg-gray-800 dark:border-gray-700">
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label for="notes" class="block text-sm font-medium mb-2" data-translate="notes">Додаткові побажання</label>
+                                    <textarea id="notes" name="notes" rows="3" data-translate="placeholderNotes" placeholder="Напишіть, якщо у вас є особливі побажання"
+                                              class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary-mediumBrown focus:ring-2 focus:ring-primary-lightBrown dark:bg-gray-800 dark:border-gray-700"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-between pt-8 border-t border-gray-200 dark:border-gray-700">
+                            <button type="button" id="prev-step" 
+                                    class="hidden px-6 py-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" data-translate="back">
+                                ← Назад
+                            </button>
+                            <button type="button" id="next-step"
+                                    class="ml-auto px-6 py-2 bg-primary-mediumBrown hover:bg-primary-darkBrown text-white rounded-lg transition-colors" data-translate="next">
+                                Далі →
+                            </button>
+                            <button type="submit" id="submit-booking" 
+                                    class="hidden px-6 py-2 bg-primary-mediumBrown hover:bg-primary-darkBrown text-white rounded-lg transition-colors" data-translate="book_appointment">
+                                Підтвердити запис
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div class="contact-info" data-animate="slide" data-slide="left">
+                    <!-- Contact info content -->
+                </div>
+                <form class="contact-form" data-animate="slide" data-slide="right">
+                    <!-- Contact form content -->
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer" class="footer">
+        <div class="footer-content">
+            <div class="flex flex-col items-center space-y-4">
+                <h3 class="text-xl font-semibold mb-2" data-translate="follow_us">Слідкуйте за нами</h3>
+                <div class="flex justify-center space-x-4">
+                    <a href="https://t.me/beautylove" target="_blank" rel="noopener noreferrer" class="hover:opacity-80 transition-opacity">
+                        <img src="https://t.me/favicon.ico" alt="Telegram" class="w-8 h-8">
+                    </a>
+                    <a href="https://instagram.com/beautylove" target="_blank" rel="noopener noreferrer" class="hover:opacity-80 transition-opacity">
+                        <img src="https://instagram.com/favicon.ico" alt="Instagram" class="w-8 h-8">
+                    </a>
+                    <a href="https://facebook.com/beautylove" target="_blank" rel="noopener noreferrer" class="hover:opacity-80 transition-opacity">
+                        <img src="https://facebook.com/favicon.ico" alt="Facebook" class="w-8 h-8">
+                    </a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3 class="py-4" data-translate="beauty_love">BeautyLove</h3>
+                <p class="py-5" data-translate="address">вул. Хрещатик, 22</p>
+                <p class="py-5" data-translate="phone_number">+380 44 123 45 67</p>
+                <p class="py-5" data-translate="email">info@beautylove.ua</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3 class="py-4" data-translate="services">Послуги</h3>
+                <ul>
+                    <li class="py-5"><a href="#services" data-translate="brows">Брови</a></li>
+                    <li class="py-5"><a href="#services" data-translate="lashes">Вії</a></li>
+                    <li class="py-5"><a href="#services" data-translate="makeup">Макіяж</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3 class="py-4" data-translate="company">Компанія</h3>
+                <ul>
+                    <li class="py-5"><a href="/src/pages/about.html" data-translate="about_us">Про нас</a></li>
+                    <li class="py-5"><a href="#faq">FAQ</a></li>
+                    <li class="py-5"><a href="#portfolio" data-translate="portfolio">Портфоліо</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright text-center mt-[50px]">
+            <p data-translate="copyright"> 2024 BeautyLove. Всі права захищені.</p>
+        </div>
+    </footer>
+
+    <script type="module" src="./src/js/gallery.js"></script>
+</body>
+</html>

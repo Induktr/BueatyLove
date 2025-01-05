@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="uk" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Портфоліо - BeautyLove</title>
+    <meta name="description" content="Галерея наших робіт та відгуки задоволених клієнтів BeautyLove.">
+    <link rel="stylesheet" href="/src/styles/main.css">
+    <script type="module" src="/src/main.js"></script>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-text-onLight dark:text-text-onDark">
+    <!-- Header will be dynamically inserted -->
+    <div id="header"></div>
+
+    <!-- Hero Section -->
+    <section class="py-20 bg-background-cream dark:bg-background-dark">
+        <div class="container mx-auto px-4">
+            <h1 class="text-4xl md:text-5xl font-bold text-primary-darkBrown dark:text-primary-lightBrown mb-6 text-center">
+                Наші роботи
+            </h1>
+            <p class="text-xl text-text-muted dark:text-text-onDark text-center max-w-3xl mx-auto">
+                Перегляньте галерею наших робіт та відгуки задоволених клієнтів
+            </p>
+        </div>
+    </section>
+
+    <!-- Portfolio Gallery -->
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <!-- Filter Buttons -->
+            <div class="flex flex-wrap justify-center gap-4 mb-12">
+                <button class="px-6 py-2 rounded-full bg-primary-mediumBrown text-text-onDark hover:bg-primary-darkBrown transition-colors">
+                    Всі роботи
+                </button>
+                <button class="px-6 py-2 rounded-full bg-background-light dark:bg-darkGray hover:bg-primary-mediumBrown hover:text-text-onDark transition-colors">
+                    Брови
+                </button>
+                <button class="px-6 py-2 rounded-full bg-background-light dark:bg-darkGray hover:bg-primary-mediumBrown hover:text-text-onDark transition-colors">
+                    Вії
+                </button>
+                <button class="px-6 py-2 rounded-full bg-background-light dark:bg-darkGray hover:bg-primary-mediumBrown hover:text-text-onDark transition-colors">
+                    Макіяж
+                </button>
+            </div>
+
+            <!-- Gallery Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Gallery items will be dynamically loaded -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-16 bg-background-warmGray dark:bg-background-dark">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-primary-darkBrown dark:text-primary-lightBrown mb-12 text-center">
+                Відгуки клієнтів
+            </h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-background-light dark:bg-darkGray p-8 rounded-lg shadow-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="relative w-12 h-12">
+                            <img src="/src/assets/images/testimonials/client-1.jpg" alt="Марина К." class="absolute inset-0 w-full h-full object-cover rounded-full">
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="font-bold text-primary-darkBrown dark:text-primary-lightBrown">Марина К.</h3>
+                            <div class="flex text-primary-mediumBrown">★★★★★</div>
+                        </div>
+                    </div>
+                    <p class="text-text-muted dark:text-text-onDark">
+                        "Чудовий сервіс та професійний підхід! Дуже задоволена результатом ламінування брів."
+                    </p>
+                </div>
+                <div class="bg-background-light dark:bg-darkGray p-8 rounded-lg shadow-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="relative w-12 h-12">
+                            <img src="/src/assets/images/testimonials/client-2.jpg" alt="Олена С." class="absolute inset-0 w-full h-full object-cover rounded-full">
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="font-bold text-primary-darkBrown dark:text-primary-lightBrown">Олена С.</h3>
+                            <div class="flex text-primary-mediumBrown">★★★★★</div>
+                        </div>
+                    </div>
+                    <p class="text-text-muted dark:text-text-onDark">
+                        "Регулярно відвідую салон для нарощування вій. Завжди відмінний результат!"
+                    </p>
+                </div>
+                <div class="bg-background-light dark:bg-darkGray p-8 rounded-lg shadow-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="relative w-12 h-12">
+                            <img src="/src/assets/images/testimonials/client-3.jpg" alt="Анна В." class="absolute inset-0 w-full h-full object-cover rounded-full">
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="font-bold text-primary-darkBrown dark:text-primary-lightBrown">Анна В.</h3>
+                            <div class="flex text-primary-mediumBrown">★★★★★</div>
+                        </div>
+                    </div>
+                    <p class="text-text-muted dark:text-text-onDark">
+                        "Найкращий салон краси! Привітний персонал та затишна атмосфера."
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Case Studies -->
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-primary-darkBrown dark:text-primary-lightBrown mb-12 text-center">
+                Історії перевтілень
+            </h2>
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="bg-background-light dark:bg-darkGray p-8 rounded-lg shadow-lg">
+                    <div class="relative h-64 mb-6">
+                        <img src="/src/assets/images/cases/case-1-before.jpg" alt="До" class="absolute inset-0 w-1/2 h-full object-cover rounded-l-lg">
+                        <img src="/src/assets/images/cases/case-1-after.jpg" alt="Після" class="absolute right-0 w-1/2 h-full object-cover rounded-r-lg">
+                    </div>
+                    <h3 class="text-xl font-bold text-primary-darkBrown dark:text-primary-lightBrown mb-4">
+                        Комплексне перевтілення
+                    </h3>
+                    <p class="text-text-muted dark:text-text-onDark mb-4">
+                        Ламінування та корекція брів, об'ємне нарощування вій
+                    </p>
+                    <ul class="space-y-2">
+                        <li class="flex items-center">
+                            <span class="mr-2">⏱️</span>
+                            Тривалість: 2.5 години
+                        </li>
+                        <li class="flex items-center">
+                            <span class="mr-2">💫</span>
+                            Використані матеріали: преміум класу
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-background-light dark:bg-darkGray p-8 rounded-lg shadow-lg">
+                    <div class="relative h-64 mb-6">
+                        <img src="/src/assets/images/cases/case-2-before.jpg" alt="До" class="absolute inset-0 w-1/2 h-full object-cover rounded-l-lg">
+                        <img src="/src/assets/images/cases/case-2-after.jpg" alt="Після" class="absolute right-0 w-1/2 h-full object-cover rounded-r-lg">
+                    </div>
+                    <h3 class="text-xl font-bold text-primary-darkBrown dark:text-primary-lightBrown mb-4">
+                        Весільний образ
+                    </h3>
+                    <p class="text-text-muted dark:text-text-onDark mb-4">
+                        Корекція та фарбування брів, нарощування вій, весільний макіяж
+                    </p>
+                    <ul class="space-y-2">
+                        <li class="flex items-center">
+                            <span class="mr-2">⏱️</span>
+                            Тривалість: 3 години
+                        </li>
+                        <li class="flex items-center">
+                            <span class="mr-2">💫</span>
+                            Використані матеріали: преміум класу
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer will be dynamically inserted -->
+    <div id="footer"></div>
+
+    <!-- Portfolio Gallery Script -->
+    <script type="module" src="/src/js/portfolio.js"></script>
+</body>
+</html>
