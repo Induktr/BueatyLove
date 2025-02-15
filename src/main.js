@@ -1,8 +1,7 @@
-import BookingForm from './components/BookingForm.js'
-import { animationController } from './js/animations.js'
-import { initIcons } from './js/icons.js'
-import { translations } from './js/translations.js'
-import './js/bookingForm'; // Import booking form functionality
+import BookingForm from './js/bookingForm.js';
+import { animationController } from './js/animations.js';
+import { initIcons } from './js/icons.js';
+import { translations } from './js/translations.js';
 
 // Theme toggle functionality
 function initThemeToggle() {
@@ -181,14 +180,6 @@ function initNavigation() {
     document.body.classList.add('page-enter')
     requestAnimationFrame(() => {
         document.body.classList.add('page-enter-active')
-    })
-}
-
-// Initialize booking forms
-function initForms() {
-    const bookingForms = document.querySelectorAll('.booking-form')
-    bookingForms.forEach(form => {
-        new BookingForm(form)
     })
 }
 
@@ -606,41 +597,44 @@ function setupServiceScrolling() {
     };
 
     // Add click event listeners to footer service links
-    document.querySelectorAll('.footer-section [data-translate]').forEach(link => {
-        // Skip portfolio links
-        if (link.closest('a')?.getAttribute('href') === '#portfolio') return;
-        
+    document.querySelectorAll('.service-link').forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
-            const service = link.getAttribute('data-translate');
+            const service = link.getAttribute('data-service');
+            const bookingSection = document.querySelector('#booking');
             
-            // First scroll to booking section
-            document.querySelector('#booking').scrollIntoView({ behavior: 'smooth' });
-            
-            // Wait for vertical scroll to complete before horizontal scroll
-            setTimeout(() => {
-                const cardIndex = serviceLinks[service];
-                const serviceCards = document.querySelector('#step-1 .flex');
-                const targetCard = serviceCards.children[cardIndex];
+            if (bookingSection) {
+                // Remove any existing animation classes
+                bookingSection.classList.remove('momentum-scroll-end');
                 
-                if (targetCard) {
-                    const container = serviceCards.parentElement;
-                    const scrollLeft = targetCard.offsetLeft - container.offsetLeft;
+                // Scroll to booking section
+                bookingSection.scrollIntoView({ behavior: 'smooth' });
+                
+                // Add bounce animation after scrolling
+                setTimeout(() => {
+                    bookingSection.classList.add('momentum-scroll-end');
                     
-                    container.scrollTo({
-                        left: scrollLeft,
-                        behavior: 'smooth'
-                    });
-                }
-            }, 400);
-        });
-    });
-
-    // Setup portfolio link scrolling
-    document.querySelectorAll('a[href="#portfolio"]').forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            document.querySelector('#portfolio').scrollIntoView({ behavior: 'smooth' });
+                    // Remove animation class after it completes
+                    setTimeout(() => {
+                        bookingSection.classList.remove('momentum-scroll-end');
+                    }, 500);
+                    
+                    // Select and highlight the corresponding service card
+                    const serviceCards = document.querySelectorAll('#step-1 .service-card');
+                    const targetCard = serviceCards[serviceLinks[service]];
+                    
+                    if (targetCard) {
+                        targetCard.classList.add('momentum-scroll-end-horizontal');
+                        // Pre-select the service
+                        serviceCards.forEach(card => card.classList.remove('border-primary-mediumBrown', 'bg-primary-lightBrown/5'));
+                        targetCard.classList.add('border-primary-mediumBrown', 'bg-primary-lightBrown/5');
+                        
+                        setTimeout(() => {
+                            targetCard.classList.remove('momentum-scroll-end-horizontal');
+                        }, 500);
+                    }
+                }, 500);
+            }
         });
     });
 }
@@ -723,9 +717,22 @@ function initSectionScroll() {
 document.addEventListener('DOMContentLoaded', () => {
     initThemeToggle();
     initBurgerMenu();
-    initLanguageSwitcher();
+    initMobileMenu();
+    initNavigation();
+    initAnimations();
+    initHoverEffects();
+    initGallery();
     initLanguagePreference();
-    animationController.init();
+    initSectionScroll();
     setupServiceScrolling();
-    initSectionScroll(); // Initialize section scroll animations
+    
+    // Initialize booking form after other UI components
+    try {
+        const bookingForm = new BookingForm();
+        if (!bookingForm) {
+            console.error('Failed to initialize booking form');
+        }
+    } catch (error) {
+        console.error('Error creating booking form:', error);
+    }
 });
